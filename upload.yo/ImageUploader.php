@@ -26,13 +26,63 @@ class ImageUploader {
       // create thumbnail
       $this->_createThumbnail($savePath);
 
+      $_SESSION['success'] = 'Upload Done!';
+
     } catch (\Exception $e) {
-      echo $e->getMessage();
-      exit;
+      $_SESSION['error'] = $e->getMessage();
+      // exit;
     }
+
+    // var_dump($_SESSION);
+    // exit;
+    
     // redirect
     header('Location: http://' . $_SERVER['HTTP_HOST']
-        . '/upload.yo/');
+        . $_SERVER['PHP_SELF']);
+    exit;
+  }
+
+  public function getResults() {
+    $success = null;
+    $error = null;
+
+    // var_dump($_SESSION);
+
+    if (isset($_SESSION['success'])) {
+      $success = $_SESSION['success'];
+      // var_dump($success);
+      // exit;
+      unset($_SESSION['success']);
+    }
+    if (isset($_SESSION['error'])) {
+      $error = $_SESSION['error'];
+      // var_dump($error);
+      // exit;
+      unset($_SESSION['error']);
+    }
+    // var_dump($success, $error);
+    // exit;
+    return [$success, $error];
+  }
+
+  public function getImages() {
+    $images = [];
+    $files = [];
+    $imageDir = opendir(IMAGES_DIR);
+    while(false !== ($file = readdir($imageDir))) {
+      if($file === '.' || $file === '..') {
+        continue;
+      }
+      $files[] = $file;
+      if (file_exists(THUMBNAIL_DIR . '/' . $file)) {
+        $images[] = basename(THUMBNAIL_DIR) . '/' . $file;
+      } else {
+        $images[] = basename(IMAGES_DIR) . '/' . $file;
+      }
+    }
+
+    array_multisort($files, SORT_DESC, $images);
+    return $images;
   }
 
   private function _createThumbnail($savePath) {
