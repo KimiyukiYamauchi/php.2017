@@ -1,0 +1,32 @@
+- mysqlサーバの状況の確認
+    - sudo service mysql status
+- rootで接続
+    - mysql -u root -p
+- データベースの一覧表示
+    - show databases;
+- データベースの作成
+    - create database <データベース名> character set utf8;
+- データベースの削除
+    - drop database <データベース名>;
+- データベースの切替
+    - use <データベース名>;
+- 現在のユーザ名確認
+    - select user();
+- 現在のデータベース名確認
+    - select database();
+- 文字コードの確認
+    - show variables like '%char%';
+        - character_set_client :
+            - クライアント側で発行したsql文はこの文字コードになる
+        - character_set_connection : 
+            - クライアントから受け取った文字をこの文字コードへ変換する
+        - character_set_database : 
+            - 現在参照しているDBの文字コード
+        - character_set_results : 
+            - クライアントへ送信する検索結果はこの文字コードになる
+        - character_set_server : 
+            - DB作成時のデフォルトの文字コード
+        - character_set_system : 
+            - システムの使用する文字セットで常にutf8が使用されている
+- ユーザ作成
+    - create user ユーザ名@localhost identified by 'パスワード';
