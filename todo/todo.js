@@ -12,12 +12,24 @@ $(function() {
       id: id,
       mode: 'update'
     }, function(res) {
-      if(res.state === '1') {
+
+      console.log(res);
+      
+      if (res.state === '1') {
         $('#todo_' + id).find('.todo_title').addClass('done');
       } else {
         $('#todo_' + id).find('.todo_title').removeClass('done');
       }
     });
+
+  });
+
+
+  // delete
+  $('#todos').on('click', '.delete_todo', function() {
+    // idを取得
+    var id = $(this).parents('li').data('id');
+    console.log(id);
 
   });
 });

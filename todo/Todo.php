@@ -40,7 +40,25 @@ class Todo {
 
 
   private function _update() {
-    
+    if(!isset($_POST['id'])) {
+      throw new \Exception('[update] id not set');
+    }
+
+    $this->_db->beginTransaction();
+
+    $sql = sprintf("update todos set state = (state + 1) %% 2 where id = %d", $_POST['id']);
+    $stmt = $this->_db->prepare($sql);
+    $stmt->execute();
+
+    $sql = sprintf("select state from todos where id = %d", $_POST['id']);
+    $stmt = $this->_db->query($sql);
+    $state = $stmt->fetchColumn();
+
+    $this->_db->commit();
+
+    return [
+      'state' => $state
+    ];
   }
   private function _create() {
     
