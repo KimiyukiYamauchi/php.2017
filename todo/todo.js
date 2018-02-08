@@ -29,7 +29,17 @@ $(function() {
   $('#todos').on('click', '.delete_todo', function() {
     // idを取得
     var id = $(this).parents('li').data('id');
-    console.log(id);
+    // console.log(id);
+
+    // ajax処理
+    if (confirm('are you sure?')) {
+      $.post('_ajax.php', {
+        id: id,
+        mode: 'delete'
+      }, function() {
+        $('#todo_' + id).fadeOut(800);
+      });
+    }
 
   });
 });
