@@ -40,3 +40,7 @@ ul > li {
 .done {
   text-decoration: line-through;
 }
+
+li#todo_template {
+  display: none;
+}

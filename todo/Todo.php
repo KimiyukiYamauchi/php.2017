@@ -61,8 +61,23 @@ class Todo {
     ];
   }
   private function _create() {
-    
+    if(!isset($_POST['title']) || $_POST['title'] === '') {
+      throw new \Exception('[create] title not set!');
+    }
+
+    $sql = "insert into todos (title) values (:title)";
+    $stmt = $this->_db->prepare($sql);
+    $stmt->execute([':title' => $_POST['title']]);
+
+    // var_dump($this->_db->lastInsertId());
+    // exit;
+
+    return [
+      'id' => $this->_db->lastInsertId()
+    ];
+
   }
+
   private function _delete() {
     if(!isset($_POST['id'])) {
       throw new \Exception('[delete] id not set');

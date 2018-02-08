@@ -42,4 +42,23 @@ $(function() {
     }
 
   });
+
+
+  // 新しい作業を追加する create
+  $('#new_todo_form').on('submit', function() {
+    // titleを取得
+    var title = $('#new_todo').val();
+    // console.log(title);
+
+    // ajax処理
+    $.post('_ajax.php', {
+      title: title,
+      mode: 'create'
+    }, function(res) {
+      // liを追加
+    });
+
+    return false; // リロードしないため
+
+  });
 });
