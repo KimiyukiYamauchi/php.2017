@@ -7,10 +7,13 @@ $(function() {
     var id = $(this).parents('li').data('id');
     // console.log(id);
 
+    // console.log($('#token').val());
+
     // ajax処理
     $.post('_ajax.php', {
       id: id,
-      mode: 'update'
+      mode: 'update',
+      token: $('#token').val()
     }, function(res) {
 
       console.log(res);
@@ -35,7 +38,8 @@ $(function() {
     if (confirm('are you sure?')) {
       $.post('_ajax.php', {
         id: id,
-        mode: 'delete'
+        mode: 'delete',
+        token: $('#token').val()
       }, function() {
         $('#todo_' + id).fadeOut(800);
       });
@@ -53,7 +57,8 @@ $(function() {
     // ajax処理
     $.post('_ajax.php', {
       title: title,
-      mode: 'create'
+      mode: 'create',
+      token: $('#token').val()
     }, function(res) {
       console.log(res);
       var $li = $('#todo_template').clone();

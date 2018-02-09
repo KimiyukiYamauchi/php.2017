@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // CSRF対策
 // 1. index.phpが表示されるタイミングで、番号生成
 // 2. 生成した番号を画面に埋め込む
@@ -12,9 +14,14 @@
 // echo __DIR__;
 // exit;
 
+
+// echo bin2hex(openssl_random_pseudo_bytes(16));
+// exit;
+
 require_once(__DIR__ . '/config.php');
 require_once(__DIR__ . '/functions.php');
 require_once(__DIR__ . '/Todo.php');
+require_once(__DIR__ . '/Token.php');
 
 $todoApp = new \MyAPP\Todo();
 $todos = $todoApp->getAll();
@@ -52,6 +59,7 @@ $todos = $todoApp->getAll();
       </li>
       
     </ul>
+    <input type="hidden" id="token" value="<?php echo h($_SESSION['token']); ?>">
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="todo.js"></script>

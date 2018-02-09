@@ -6,6 +6,9 @@ class Todo {
   private $_db;
 
   public function __construct() {
+
+    Token::create(); // CSRF対策のトークン生成
+
     try {
       $this->_db = new \PDO(DSN, DB_USERNAME, DB_PASSWORD);
       $this->_db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -24,6 +27,9 @@ class Todo {
   }
 
   public function post() {
+
+    Token::validate('token'); // CSRF対策のトークンチェック
+
     if(!isset($_POST['mode'])) {
       throw new \Exception('mode not set!');
     }
