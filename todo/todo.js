@@ -55,7 +55,14 @@ $(function() {
       title: title,
       mode: 'create'
     }, function(res) {
-      // liを追加
+      console.log(res);
+      var $li = $('#todo_template').clone();
+      $li
+        .attr('id', 'todo_' + res.id)
+        .data('id', res.id)
+        .find('.todo_title').text(title);
+      $('#todos').prepend($li.fadeIn());
+      $('#new_todo').val('').focus();
     });
 
     return false; // リロードしないため
