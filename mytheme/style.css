@@ -13,6 +13,40 @@ body {
 }
 
 /* -------------------- 基本構造 ---------------- */
+
+/* ヘッダーとフッターをバー-の形にする */
+header {
+  border-bottom: solid 1px #dddddd;
+  background-color: #f6f6f6;
+}
+
+footer {
+  border-top: solid 1px #dddddd;
+}
+
+/* ボックスの上下の間隔 */
+.contents {
+  padding-top: 30px;
+  padding-bottom: 20px
+}
+
+.sub {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+footer {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+/* ボックスの左右の余白 */
+header, footer, .container {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
 @media (min-width: 768px) {
   /* コンテンツとサイドバーを横に並べる設定 */
   .container:after {
@@ -28,19 +62,122 @@ body {
     float: left;
     width: 30%;
   }
+
+  /* コンテンツとサイドバーの間隔 */
+  .contents {
+    padding-right: 50px;
+    .moz-box-sizing: border-box;
+    .webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 }
+
+/* 全体の横幅 */
+.container {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 /* -------------------- ヘッダー ---------------- */
 .site h1 a {
-  color: #000000;
+  display: inline-block;
+  padding: 10px;
+  background-color: #00a0e9;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .site h1 {
   margin: 0;
+  font-family: 'Arial Black', sans-serif;
   font-size: 30px;
 }
 
-.site p {
+/* -------------------- フッター ---------------- */
+
+/* コピーライト */
+.copyright p {
   margin: 0;
-  font-size: 12px;
+  color: #666666;
+  font-size: 14px;
+}
+
+/* -------------------- 記事の概要 ---------------- */
+
+/* 概要 */
+.gaiyou a {
+  display: block;
+  padding: 20px 0;
+  border-bottom: dotted 2px #dddddd;
+  color: #000000;
+  text-decoration: none;
+}
+
+.gaiyou a:hover {
+  background-color: #eeeeee;
+}
+
+.gaiyou h1 {
+  margin-top: 0;
+  margin-bottom: 10px
+  font-size: 20px;
+}
+
+.gaiyou p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* -------------------- 記事 ---------------- */
+
+/* 記事 */
+.kiji h1 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 36px;
+}
+
+.kiji p {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 599px) {
+  .kiji h1 {
+    font-size: 24px;
+  }
+  .kiji p {
+    font-size: 14px;
+  }
+}
+
+/* -------------------- サイドバー ---------------- */
+
+/* メニュー */
+.mymenu h2 {
+  margin-top: 0;
+  margin-bottom: 10px
+  border-bottom: solid 2px #dddddd;
+  color: #666666;
+  font-size: 18px;
+}
+
+.mymenu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mymenu li a {
+  display: block;
+  padding: 10px 5px;
+  color: #000000;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.mymenu li a:hover {
+  background-color: #eeeeee;
 }
