@@ -25,6 +25,7 @@ if(!$quiz->isFinished()) {
 			Your score ...
 			<div><?= h($quiz->getScore()); ?> %</div>
 		</div>
+		<a href=""><div id="btn">Replay?</div></a>
 	</div>
 	<?php $quiz->reset(); ?>
 <?php else : ?>
