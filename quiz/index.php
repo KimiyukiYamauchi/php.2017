@@ -1,12 +1,13 @@
 <?php
 
 require_once(__DIR__ . '/config.php');
-require_once(__DIR__ . '/Quiz.php');
 
 
 $quiz = new \MyApp\Quiz();
-$data = $quiz->getCurrentQuiz();
-shuffle($data['a']);
+if(!$quiz->isFinished()) {
+  $data = $quiz->getCurrentQuiz();
+  shuffle($data['a']);
+}
 
 
 ?>
@@ -18,16 +19,28 @@ shuffle($data['a']);
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="container">
-    <h1>Q. <?= h($data['q']); ?></h1>
-    <ul>
-      <?php foreach($data['a'] as $a) : ?>
-        <li class="answer"><?= h($a); ?></li>
-      <?php endforeach; ?>
-    </ul>
-    <div id="btn" class="disabled">Next Question</div>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="quiz.js"></script>
+  <?php if ($quiz->isFinished()) : ?>
+    <div id="container">
+      <div id="result">
+        Your score ...
+        <div><?= $quiz->getScore(); ?> %</div>
+      </div>
+      <a href=""><div id="btn">Replay?</div></a>
+    </div>
+    <?php $quiz->reset(); ?>
+  <?php else : ?>
+    <div id="container">
+      <h1>Q. <?= h($data['q']); ?></h1>
+      <ul>
+        <?php foreach($data['a'] as $a) : ?>
+          <li class="answer"><?= h($a); ?></li>
+        <?php endforeach; ?>
+      </ul>
+      <div id="btn" class="disabled"><?= $quiz->isLast() ? 'Show Result' : 'Next Question'; ?></div>
+      <input type="hidden" id="token" value="<?= h($_SESSION['token']) ?>">
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="quiz.js"></script>
+  <?php endif; ?>
 </body>
 </html>
