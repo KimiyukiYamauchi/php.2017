@@ -15,4 +15,6 @@ $(function() {
     }
   });
 
+  $('.error').fadeOut(3000);
+
 });

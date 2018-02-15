@@ -16,15 +16,30 @@ class Poll {
       header('location: http://' . $_SERVER['HTTP_HOST'] . '/poll/result.php');
     } catch(\Exception $e) {
       // set error
+      $_SESSION['err'] = $e->getMessage();
       header('location: http://' . $_SERVER['HTTP_HOST'] . '/poll/index.php');
     }
     exit;
   }
 
-  private function _validateAnswer() {
-    var_dump($_POST);
-    exit;
+  public function getError() {
+    $err = null;
+    if (isset($_SESSION['err'])) {
+      $err = $_SESSION['err'];
+      unset($_SESSION['err']);
+    }
+    return $err;
+  }
 
+  private function _validateAnswer() {
+    // var_dump($_POST);
+    // exit;
+    if (
+      !isset($_POST['answer']) ||
+      !in_array($_POST['answer'], [0, 1, 2])
+    ) {
+      throw new \Exception('invalid answer!');
+    }
   }
 
   private function _save() {

@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $poll->post();
 }
 
+$err = $poll->getError();
+
 
 ?>
 <!DOCTYPE html>
@@ -27,12 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <?php if (isset($err)) : ?>
+    <div class="error"><?= h($err); ?></div>
+  <?php endif; ?>
   <h1>Which do you like best?</h1>
   <form action="" method="post">
     <div class="row">
       <div class="box" id="box_0" data-id="0"></div>
       <div class="box" id="box_1" data-id="1"></div>
-      <div class="box" id="box_2" data-id="2"></div>
+      <div class="box" id="box_2" data-id="5"></div>
       <input type="hidden" id="answer" name="answer" value="">
     </div>
     <div id="btn">Vote and See Results</div>
