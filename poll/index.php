@@ -1,5 +1,23 @@
 <?php
 
+require_once(__DIR__ . '/config.php');
+require_once(__DIR__ . '/Poll.php');
+
+try {
+  $poll = new \MyApp\Poll();
+  /*echo 'OK';
+  exit;*/
+
+} catch (Exception $e) {
+  echo $e->getMessage();
+  exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $poll->post();
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -12,11 +30,14 @@
   <h1>Which do you like best?</h1>
   <form action="" method="post">
     <div class="row">
-      <div class="box" id="box_0" data-di="0"></div>
-      <div class="box" id="box_1" data-di="1"></div>
-      <div class="box" id="box_2" data-di="2"></div>
+      <div class="box" id="box_0" data-id="0"></div>
+      <div class="box" id="box_1" data-id="1"></div>
+      <div class="box" id="box_2" data-id="2"></div>
+      <input type="hidden" id="answer" name="answer" value="">
     </div>
     <div id="btn">Vote and See Results</div>
   </form>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="poll.js"></script>
 </body>
 </html>
