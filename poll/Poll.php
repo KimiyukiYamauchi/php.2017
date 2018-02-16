@@ -7,10 +7,12 @@ class Poll {
 
   public function __construct() {
     $this->_connectDB();
+    Token::create();  // CSRF対策
   }
 
   public function post() {
     try {
+      Token::validate('token'); // CSRF対策
       $this->_validateAnswer();
       $this->_save();
       header('location: http://' . $_SERVER['HTTP_HOST'] . '/poll/result.php');
@@ -20,6 +22,21 @@ class Poll {
       header('location: http://' . $_SERVER['HTTP_HOST'] . '/poll/index.php');
     }
     exit;
+  }
+
+  public function getResults() {
+    $data = array_fill(0, 3, 0);
+
+    $sql = "select answer, count(*) as c from answers group by answer";
+    $rows = $this->_db->query($sql);
+    foreach($rows as $row) {
+      $data[$row['answer']] = (int)$row['c'];
+    }
+
+    // var_dump($data);
+    // exit;
+    return $data;
+
   }
 
   public function getError() {
@@ -43,6 +60,11 @@ class Poll {
   }
 
   private function _save() {
+    $sql = "insert into answers (answer, created) values (:answer, now())";
+    $stmt = $this->_db->prepare($sql);
+    $stmt->bindValue(':answer', (int)$_POST['answer'], \PDO::PARAM_INT);
+    $stmt->execute();
+    // exit;
 
   }
 
