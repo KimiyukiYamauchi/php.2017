@@ -1,0 +1,9 @@
+site => Pixabay
+plugin => Pixabay Images
+
+site => Flickr
+plugin => ImageInject
+
+https://twitter.com/ebisucom/status/524833349366333440
+
+https://www.instagram.com/p/4BXlvHC0ER/
