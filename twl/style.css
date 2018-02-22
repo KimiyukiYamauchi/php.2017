@@ -1,0 +1,13 @@
+#container {
+  width: 500px;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 18px;
+  border-bottom: 1px solid #ccc;
+  padding: 3px 0;
+}
+#login {
+  text-align: center;
+  margin: 70px auto;
+}

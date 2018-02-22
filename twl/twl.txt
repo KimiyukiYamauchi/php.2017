@@ -1,0 +1,18 @@
+Consumer Key (API Key)  apTpzEv3wChAME9cpmhkBCAcv
+Consumer Secret (API Secret)  qu9E6bLaqsc9pi72dRv5OKup6PC9MyqUFM3cH2YDxjeKbbgbyd
+
+create database twl;
+
+grant all on twl.* to dbuser@localhost;
+
+use twl
+
+create table users (
+  id int not null auto_increment primary key,
+  tw_user_id bigint unique,
+  tw_screen_name varchar(15),
+  tw_access_token varchar(255),
+  tw_access_token_secret varchar(255),
+  created datetime,
+  modified datetime
+);
