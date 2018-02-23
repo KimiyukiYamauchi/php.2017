@@ -31,8 +31,18 @@ class TwitterLogin {
         'oauth_verifier' => $_GET['oauth_verifier']
     ]);
 
-    var_dump($tokens);
+    // var_dump($tokens);
+    // exit;
+
+    $user = new User();
+    $user->saveTokens($tokens);
+    echo 'tokens saved';
     exit;
+
+    $_SESSION['me'] = $user->getUser($tokens['user_id']);
+
+    unset($_SESSION['oauth_token']);
+    unset($_SESSION['oauth_token_secret']);
   }
 
   private function _redirectFlow() {
