@@ -7,7 +7,32 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 class TwitterLogin {
 
   public function login() {
-    $this->_redirectFlow();
+
+    if (!isset($_GET['oauth_token']) || !isset($_GET['oauth_verifier'])) {
+      $this->_redirectFlow();
+    } else {
+      $this->_callbackFlow();
+    }
+  }
+
+  private function _callbackFlow() {
+    if ($_GET['oauth_token'] !== $_SESSION['oauth_token']) {
+      throw new \Exception('Invalid oauth_token');
+    }
+
+    $conn = new TwitterOAuth(
+      CONSUMER_KEY,
+      CONSUMER_SECRET,
+      $_SESSION['oauth_token'],
+      $_SESSION['oauth_token_secret']
+    );
+
+    $tokens = $conn->oauth('oauth/access_token', [
+        'oauth_verifier' => $_GET['oauth_verifier']
+    ]);
+
+    var_dump($tokens);
+    exit;
   }
 
   private function _redirectFlow() {
