@@ -11,3 +11,6 @@ h1 {
   text-align: center;
   margin: 70px auto;
 }
+#logout {
+  float: right;
+}

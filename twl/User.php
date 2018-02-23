@@ -19,9 +19,9 @@ class User {
   }
 
   public function getUser($twUserId) {
-    $sql = sprinf("select * from users where tw_user_id = %d", $twUserId);
+    $sql = sprintf("select * from users where tw_user_id = %d", $twUserId);
     $stmt = $this->_db->query($sql);
-    $res = $this->_db->fetch(\PDO::FETCH_OBJ);
+    $res = $stmt->fetch(\PDO::FETCH_OBJ);
     return $res;
 
   }

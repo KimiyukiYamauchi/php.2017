@@ -8,11 +8,19 @@ class TwitterLogin {
 
   public function login() {
 
+    if ($this->isLoggedIn()) {
+      goHome();
+    }
+
     if (!isset($_GET['oauth_token']) || !isset($_GET['oauth_verifier'])) {
       $this->_redirectFlow();
     } else {
       $this->_callbackFlow();
     }
+  }
+
+  public function isLoggedIn() {
+    return isset($_SESSION['me']) && !empty($_SESSION['me']);
   }
 
   private function _callbackFlow() {
@@ -36,13 +44,15 @@ class TwitterLogin {
 
     $user = new User();
     $user->saveTokens($tokens);
-    echo 'tokens saved';
-    exit;
+    // echo 'tokens saved';
+    // exit;
 
     $_SESSION['me'] = $user->getUser($tokens['user_id']);
 
     unset($_SESSION['oauth_token']);
     unset($_SESSION['oauth_token_secret']);
+
+    goHome();
   }
 
   private function _redirectFlow() {
