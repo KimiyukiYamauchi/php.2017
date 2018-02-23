@@ -1,0 +1,6 @@
+{
+    "name": "vagrant/twl.yo",
+    "require": {
+        "abraham/twitteroauth": "^0.7.4"
+    }
+}
