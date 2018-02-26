@@ -14,8 +14,10 @@ class Twitter {
 
   public function getTweets() {
     try {
-      $tweets = $this->_conn->get('statuses/home_timeline', [
-        'count' => 5
+      // $tweets = $this->_conn->get('statuses/home_timeline', [
+      $tweets = $this->_conn->get('statuses/user_timeline', [
+        'count' => 5,
+        'screen_name' => $_SESSION['me']->tw_screen_name
       ]);
     } catch (TwitterOAuthException $e) {
       echo 'Failed to load timeline';
