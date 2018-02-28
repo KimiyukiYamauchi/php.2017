@@ -7,6 +7,9 @@ $twitterLogin = new MyApp\TwitterLogin();
 if ($twitterLogin->isLoggedIn()) {
   $me = $_SESSION['me'];
 
+  $twitter = new MyApp\Twitter($me->tw_access_token, $me->tw_access_token_secret);
+  $tweets = $twitter->getTweets();
+
   MyApp\Token::create();
 }
 
@@ -29,6 +32,13 @@ if ($twitterLogin->isLoggedIn()) {
       </form>
 
       <h1>@<?= h($me->tw_screen_name); ?>'s Timeline</h1>
+
+      <ul>
+      <?php foreach ($tweets as $tweet) : ?>
+        <li><?= $tweet->text; ?></li>
+      <?php endforeach; ?>
+      </ul>
+
     <?php else : ?>
       <div id="login">
         <a href="login.php"><img src="signin_button.png"></a>
