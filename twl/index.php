@@ -6,6 +6,8 @@ $twitterLogin = new MyApp\TwitterLogin();
 
 if ($twitterLogin->isLoggedIn()) {
   $me = $_SESSION['me'];
+
+  MyApp\Token::create();
 }
 
 ?>
@@ -23,6 +25,7 @@ if ($twitterLogin->isLoggedIn()) {
       
       <form action="logout.php" method="post" id="logout">
         <input type="submit" value="Log Out">
+        <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
       </form>
 
       <h1>@<?= h($me->tw_screen_name); ?>'s Timeline</h1>
